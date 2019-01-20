@@ -1,10 +1,8 @@
-pipeline {
-    node{
-        stages {
-            stage('Test') {
-                steps {
-                    sh 'node --version'                
-                }
+node{
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'                
             }
         }
     }
