@@ -2,6 +2,10 @@
   "name": "azap-air",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=10.12.0",
+    "npm": ">=6.5.0"
+  },
   "dependencies": {
     "@date-io/date-fns": "^1.0.1",
     "@material-ui/core": "^3.9.0",

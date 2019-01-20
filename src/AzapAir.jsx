@@ -11,6 +11,9 @@ import CustomerDetail from "./CustomerDetail";
 import Insurance from "./Insurance";
 import Review from "./Review";
 import FlightResult from "./FlightResult";
+import System from "./System";
+
+const dateFn = new DateFnsUtils();
 
 const theme = createMuiTheme({
   palette: {
@@ -29,7 +32,8 @@ const theme = createMuiTheme({
   },
   overrides: {
     typography: {
-      useNextVariants: true
+      useNextVariants: true,
+      suppressDeprecationWarnings: true
     }
   }
 });
@@ -72,7 +76,7 @@ const styles = theme => ({
   }
 });
 
-const flights = [
+const flightMasterList = [
   {
     source: "SIN",
     destination: "NRT",
@@ -87,35 +91,49 @@ const flights = [
     departureTime: "23:55",
     arrivalTime: "07:30",
     arrivalDay: "1",
-    flight: "AA12"
+    flight: "AA13"
   }
 ];
 class AzapAir extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      search: {},
-      flights: flights,
-      flight: null,
-      customer: {},
-      insurance: {}
-    };
-    this.onSearch = this.onSearch.bind(this);
-    this.onClearSearch = this.onClearSearch.bind(this);
-    this.onSelectFlight = this.onSelectFlight.bind(this);
-    this.onCustomerUpdate = this.onCustomerUpdate.bind(this);
-    this.onConfirm = this.onConfirm.bind(this);
-  }
-  onSearch = event => {};
-  onClearSearch = event => {};
-  onSelectFlight = flight => {
-    console.log(flight);
+  state = {
+    search: {},
+    flights: [],
+    flight: null,
+    customer: {},
+    insuranceList: []
   };
-  onCustomerUpdate = event => {};
+
+  onSearch = searchParams => {
+    let flights = flightMasterList.map(flight => {
+      let copy = { ...flight };
+      copy.departureDate = searchParams.departureDate;
+
+      copy.arrivalDate = dateFn.addDays(
+        this.props.departureDate,
+        flight.arrivalDay
+      );
+      return copy;
+    });
+
+    this.setState({ flights: flights });
+  };
+  onClearSearch = event => {};
+  onSelectFlight = flight => {};
+  onCustomerUpdate = event => {
+    System.rapidApi
+      .getSkiInsurance()
+      .then(response => {
+        return response.json();
+      })
+      .then(products => {
+        this.setState({ insuranceList: products });
+      });
+  };
   onConfirm = event => {};
+  onInsuranceSelect = event => {};
   render = () => {
     const { classes } = this.props;
-    let state = this.state;
+    // let state = this.state;
 
     return (
       <MuiThemeProvider theme={theme}>
@@ -132,16 +150,22 @@ class AzapAir extends Component {
               </Paper>
             </Grid>
             <Grid item xs={12} sm={8}>
-              <FlightResult flights={state.flights} />
+              <FlightResult
+                flights={this.state.flights}
+                onSelect={this.onSelectFlight}
+              />
             </Grid>
             <Grid item xs={12} sm={8}>
-              <CustomerDetail />
+              <CustomerDetail onUpdate={this.onCustomerUpdate} />
             </Grid>
             <Grid item xs={12} sm={8}>
-              <Insurance />
+              <Insurance
+                onSelect={this.onInsuranceSelect}
+                products={this.state.insuranceList}
+              />
             </Grid>
             <Grid item xs={12} sm={8}>
-              <Review />
+              <Review onConfirm={this.onConfirm} />
             </Grid>
           </Grid>
         </MuiPickersUtilsProvider>

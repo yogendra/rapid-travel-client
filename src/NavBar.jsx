@@ -29,7 +29,7 @@ class NavBar extends Component {
             <MenuIcon />
           </IconButton>
           <Typography variant="title" color="inherit">
-            AZAP AIR
+            Travizza!!
           </Typography>
         </Toolbar>
       </AppBar>

@@ -19,7 +19,7 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   formControl: {
-    margin: theme.spacing.unit
+    // margin: theme.spacing.unit
   },
 
   selectEmpty: {
@@ -45,15 +45,10 @@ class SearchPanel extends Component {
       to: "CTS",
       returnDate: tomorrow
     };
-    this.handleFromChange = this.handleFromChange.bind(this);
-    this.handleToChange = this.handleToChange.bind(this);
-    this.handleDepartureDateChange = this.handleDepartureDateChange.bind(this);
-    this.handleReturnDateChange = this.handleReturnDateChange.bind(this);
   }
 
   handleFromChange = departurePort => {
     this.setState({ departurePort });
-    console.log(this.state);
   };
   handleDepartureDateChange = departureDate => {
     this.setState({ departureDate });
@@ -61,13 +56,10 @@ class SearchPanel extends Component {
   handleReturnDateChange = returnDate => {
     this.setState({ returnDate });
   };
-  handleToChange = price => {
-    this.setState({ price });
-    console.log(this.state);
+  handleToChange = to => {
+    this.setState({ to });
   };
-  handleSearch = () => {
-    console.log(this.state);
-
+  handleSearch = event => {
     this.props.onSearch({
       from: this.state.from,
       to: this.state.to,
@@ -75,6 +67,7 @@ class SearchPanel extends Component {
       returnDate: this.state.returnDate
     });
   };
+  handleClear = event => {};
   render() {
     let state = this.state;
     const { classes } = this.props;
@@ -97,10 +90,10 @@ class SearchPanel extends Component {
             <FormControl className={classes.formControl} fullWidth={true}>
               <InputLabel>From</InputLabel>
               <Select
+                label="From"
                 variant="filled"
                 value={this.state.from}
                 onChange={this.handleFromChange}
-                label="From"
                 className={classes.textField}
               >
                 <MenuItem value="">
@@ -148,11 +141,7 @@ class SearchPanel extends Component {
         </Grid>
         <Grid container spacing={8} justify="flex-end">
           <Grid item xs={3} lg={2}>
-            <Button
-              variant="text"
-              color="secondary"
-              onClick={this.handleBookNow}
-            >
+            <Button variant="text" color="secondary" onClick={this.handleClear}>
               Clear Search
             </Button>
           </Grid>

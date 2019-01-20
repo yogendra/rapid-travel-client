@@ -19,7 +19,7 @@ class Flight extends Component {
         <Grid item xs={5} sm={2}>
           <Typography variant="h4">{flight.source}</Typography>
           <Typography variant="caption">
-            16-Jan {flight.departureTime}
+            {flight.departureDate} {flight.departureTime}
           </Typography>
         </Grid>
         <Grid item xs={1}>
@@ -27,7 +27,9 @@ class Flight extends Component {
         </Grid>
         <Grid item xs={5} sm={2}>
           <Typography variant="h4">{flight.destination}</Typography>
-          <Typography variant="caption">16-Jan {flight.arrivalTime}</Typography>
+          <Typography variant="caption">
+            {flight.arrivalDate} {flight.arrivalTime}
+          </Typography>
         </Grid>
       </Grid>
     );
