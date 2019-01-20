@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Paper, Grid, withStyles, Radio, Typography } from "@material-ui/core";
+import { Paper, Grid, withStyles, Typography } from "@material-ui/core";
 import Flight from "./Flight";
 const styles = theme => ({
   header: {}

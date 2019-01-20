@@ -120,14 +120,9 @@ class AzapAir extends Component {
   onClearSearch = event => {};
   onSelectFlight = flight => {};
   onCustomerUpdate = event => {
-    System.rapidApi
-      .getSkiInsurance()
-      .then(response => {
-        return response.json();
-      })
-      .then(products => {
-        this.setState({ insuranceList: products });
-      });
+    System.rapidApi.getSkiInsurance().then(products => {
+      this.setState({ insuranceList: products });
+    });
   };
   onConfirm = event => {};
   onInsuranceSelect = event => {};

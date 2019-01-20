@@ -1,0 +1,17 @@
+{
+  "development": {
+    "rapid": {
+      "baseUrl": "https://api-rapid-test.apps.pcfone.io"
+    }
+  },
+  "test": {
+    "rapid": {
+      "baseUrl": "https://api-rapid-test.apps.pcfone.io"
+    }
+  },
+  "production": {
+    "rapid": {
+      "baseUrl": "https://rapid-api.apps.pcfone.io"
+    }
+  }
+}

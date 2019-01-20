@@ -9,7 +9,10 @@ const InsuranceItem = props => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <img src="http://via.placeholder.com/240" />
+        <img
+          src="http://via.placeholder.com/240"
+          alt="{props.insurance.description}"
+        />
         <Typography variant="h3">{props.insurance.name}</Typography>
         <Typography variant="subheading">
           {props.insurance.description}
