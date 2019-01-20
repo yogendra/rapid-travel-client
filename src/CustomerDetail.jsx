@@ -42,6 +42,7 @@ class CustomerDetail extends Component {
                     label="Name"
                     value={props.value}
                     onChange={this.onNameChange}
+                    autoComplete="name"
                   />
                 </FormControl>
               </Grid>
@@ -51,6 +52,7 @@ class CustomerDetail extends Component {
                     label="Email"
                     value={props.value}
                     onChange={this.onEmailChange}
+                    autoComplete="email"
                   />
                 </FormControl>
               </Grid>
@@ -60,6 +62,7 @@ class CustomerDetail extends Component {
                     label="Phone Number"
                     value={props.value}
                     onChange={this.onPhoneChange}
+                    autoComplete="phone tel"
                   />
                 </FormControl>
               </Grid>

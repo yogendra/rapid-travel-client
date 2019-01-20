@@ -1,27 +1,63 @@
 import React from "react";
-import { Grid, withStyles, Typography } from "@material-ui/core";
+import {
+  withStyles,
+  Typography,
+  Card,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Button
+} from "@material-ui/core";
 
 const styles = theme => ({
-  header: {}
+  header: {},
+  card: {
+    maxWidth: "92%"
+  },
+  media: {
+    height: 200
+  }
 });
 
 const InsuranceItem = props => {
+  const i = props.insurance;
+  const classes = props.classes;
+
   return (
-    <Grid container>
-      <Grid item xs={12}>
-        <img
-          src="http://via.placeholder.com/240"
-          alt="{props.insurance.description}"
+    <Card className={classes.card}>
+      <CardActionArea>
+        <CardMedia
+          className={classes.media}
+          image={i.largeBanner}
+          title={i.name}
         />
-        <Typography variant="h3">{props.insurance.name}</Typography>
-        <Typography variant="subheading">
-          {props.insurance.description}
-        </Typography>
-        <Typography variant="subheading">IDR 115,000 only</Typography>
-      </Grid>
-      <Grid xs={4}>Coverage: {props.insurance.coverage.amount}</Grid>
-      <Grid xs={4}>Premium: {props.insurance.premium.amount}</Grid>
-    </Grid>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {i.name}
+          </Typography>
+          <Typography component="p">{i.description}</Typography>
+          <Typography variant="h6">
+            Coverage: {i.coverage.currency}
+            &nbsp;
+            {i.coverage.amount}
+          </Typography>
+          <Typography variant="h6">
+            Premium: {i.premium.currency}
+            &nbsp;
+            {i.premium.amount}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button size="small" color="primary">
+          Share
+        </Button>
+        <Button size="small" color="primary">
+          Learn More
+        </Button>
+      </CardActions>
+    </Card>
   );
 };
 
