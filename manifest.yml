@@ -3,19 +3,19 @@ applications:
 - name: travizza
   health-check-type: http
   health-check-http-endpoint: /
-  path: .
+  path: build
   stack: cflinuxfs3
   buildpacks:
-    - nodejs_buildpack
+    - staticfile_buildpack
   routes:
-    - route: travizza.apps.pcfone.io
+    - route: travizza.apps.pcfone.io  
 - name: travizza-test
   health-check-type: http
   health-check-http-endpoint: /
-  path: .
+  path: build
   stack: cflinuxfs3
   buildpacks:
-    - nodejs_buildpack
+    - staticfile_buildpack
   routes:
     - route: travizza-test.apps.pcfone.io
   env:
@@ -29,4 +29,4 @@ applications:
     - staticfile_buildpack
   random-route: true
   env:
-    NODE_ENV: dev
+    NODE_ENV: development
