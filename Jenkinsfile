@@ -4,11 +4,14 @@ node{
          checkout scm
     }
 
-    // stage('Build') {
-    //     sh 'npm install'                       
-    // }
+    stage ('Get Dependencies'){
+        sh 'npm install'
+    }
+    stage('Build & Test') {        
+        sh 'npm run-script build'                       
+    }
 
-    stage('Deploy') {
+    stage('Deploy to Production') {
         withCredentials([usernamePassword(credentialsId: 'pcf-pcfone', passwordVariable: 'CF_PASSWORD', usernameVariable: 'CF_USER')]) {
             sh 'cf login -a api.run.pcfone.io -u $CF_USER -p $CF_PASSWORD -s Production'
             sh 'cf push travizza'
