@@ -1,35 +1,43 @@
 import { Grid, Paper, withStyles, Typography, Button } from "@material-ui/core";
 import React, { Component } from "react";
 
-let styles = themes => ({});
+let styles = themes => ({
+  actionBar: {
+    marginTop: 8,
+    display: "flex",
+    justifyContent: "flex-end"
+  },
+  action: {
+    display: "inline-block"
+  }
+});
 
-class Review extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  render() {
-    return (
-      <Grid container spacing={8}>
-        <Grid item xs={12}>
-          <Paper>
-            <Grid container>
-              <Grid item xs={12}>
-                <Typography variant="h6">Review and Confirm</Typography>
-              </Grid>
-            </Grid>
-            <Grid container spacing={8} justify="flex-end">
-              <Grid item xs={2}>
-                <Button variant="contained" color="secondary">
-                  Book
-                </Button>
-              </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
+const Review = props => {
+  const { classes } = props;
+
+  return (
+    <Grid container>
+      <Grid item xs={12}>
+        <Typography variant="h6">Review and Confirm</Typography>
       </Grid>
-    );
-  }
-}
+      <Grid item xs={12}>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nostrum
+        explicabo, assumenda quam esse in officiis rem optio provident dolore
+        eius? Voluptates fuga soluta ad enim ullam accusantium similique. Vitae,
+        consequatur!
+      </Grid>
+      <Grid container item xs={12} className={classes.actionBar}>
+        <Button
+          className={classes.action}
+          variant="contained"
+          color="secondary"
+          onClick={props.onConfirm}
+        >
+          Book
+        </Button>
+      </Grid>
+    </Grid>
+  );
+};
 
 export default withStyles(styles)(Review);

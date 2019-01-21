@@ -2,18 +2,22 @@ import React, { Component } from "react";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import NavBar from "./NavBar";
 import SearchPanel from "./SearchPanel";
-import { MuiPickersUtilsProvider } from "material-ui-pickers";
-import DateFnsUtils from "@date-io/date-fns";
+import { startOfDay, addDays, addHours, format } from "date-fns";
 import "typeface-roboto";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { withStyles, Paper, Grid, createMuiTheme } from "@material-ui/core";
+import {
+  withStyles,
+  Paper,
+  Grid,
+  createMuiTheme,
+  Typography,
+  Button
+} from "@material-ui/core";
 import CustomerDetail from "./CustomerDetail";
 import Insurance from "./Insurance";
 import Review from "./Review";
 import FlightResult from "./FlightResult";
 import System from "./System";
-
-const dateFn = new DateFnsUtils();
 
 const theme = createMuiTheme({
   palette: {
@@ -54,13 +58,13 @@ const styles = theme => ({
   },
 
   paper: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
-    padding: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+    padding: theme.spacing.unit,
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 6,
-      marginBottom: theme.spacing.unit * 6,
-      padding: theme.spacing.unit * 3
+      marginTop: theme.spacing.unit * 3,
+      marginBottom: theme.spacing.unit * 3,
+      padding: theme.spacing.unit * 2
     }
   },
   stepper: {
@@ -76,94 +80,162 @@ const styles = theme => ({
   }
 });
 
-const flightMasterList = [
-  {
-    source: "SIN",
-    destination: "NRT",
-    departureTime: "09:30",
-    arrivalTime: "17:05",
-    arrivalDay: "0",
-    flight: "AA12"
-  },
-  {
-    source: "SIN",
-    destination: "NRT",
-    departureTime: "23:55",
-    arrivalTime: "07:30",
-    arrivalDay: "1",
-    flight: "AA13"
-  }
-];
 class AzapAir extends Component {
   state = {
-    search: {},
-    flights: [],
+    flightList: [],
     flight: null,
-    customer: {},
-    insuranceList: []
+    customer: {
+      name: "",
+      email: "",
+      phone: "",
+      cc: {
+        number: "",
+        expiry: "",
+        cvv: ""
+      }
+    },
+    insurance: [],
+    insuranceList: [],
+    search: {
+      from: "SIN",
+      to: "CTS",
+      departureDate: startOfDay(addDays(new Date(), 1)),
+      returnDate: startOfDay(addDays(new Date(), 2))
+    },
+    currentStep: 1
   };
 
-  onSearch = searchParams => {
-    let flights = flightMasterList.map(flight => {
-      let copy = { ...flight };
-      copy.departureDate = searchParams.departureDate;
+  onSearch = search => {
+    let flightList = [1, 2, 3].map(x => {
+      let depart = addHours(startOfDay(search.departureDate), x * 2 + 8);
+      let arrival = addHours(startOfDay(search.departureDate), x * 2 + 12);
 
-      copy.arrivalDate = dateFn.addDays(
-        this.props.departureDate,
-        flight.arrivalDay
-      );
-      return copy;
+      return {
+        source: search.from,
+        destination: search.to,
+        departureDate: format(depart, "dd-MMM-yyyy"),
+        departureTime: format(depart, "HH:mm"),
+        arrivalDate: format(arrival, "dd-MMM-yyyy"),
+        arrivalTime: format(arrival, "HH:mm"),
+        flight: "AA1" + x,
+        price: {
+          currency: "USD",
+          amount: 150 + x * (Math.random() * 10 + 1)
+        }
+      };
     });
 
-    this.setState({ flights: flights });
+    this.setState({ search, flightList });
+    this.next();
   };
-  onClearSearch = event => {};
-  onSelectFlight = flight => {};
-  onCustomerUpdate = event => {
-    System.rapidApi.getSkiInsurance().then(products => {
-      this.setState({ insuranceList: products });
+
+  onSelectFlight = flight => {
+    this.setState({ flight });
+    this.next();
+  };
+  onCustomerUpdate = customer => {
+    console.log(customer);
+    this.setState({ customer: customer });
+    System.rapidApi.getSkiInsurance().then(insuranceList => {
+      this.setState({ insuranceList });
+      this.next();
     });
   };
-  onConfirm = event => {};
-  onInsuranceSelect = event => {};
+
+  onInsuranceSelect = insurance => {
+    this.setState({ insurance });
+    this.next();
+  };
+  onConfirm = event => {
+    this.setState({ confirme: true });
+    this.next();
+  };
+  next = () => {
+    this.setState(prevState => {
+      return { currentStep: prevState.currentStep + 1 };
+    });
+  };
+  goToStart = () => {
+    this.setState({ currentStep: 1 });
+  };
+
   render = () => {
     const { classes } = this.props;
-    // let state = this.state;
-
+    const state = this.state;
+    const {
+      customer,
+      insurance,
+      insuranceList,
+      search,
+      flight,
+      flightList,
+      currentStep
+    } = state;
+    let panel = <SearchPanel search={search} onSearch={this.onSearch} />;
+    switch (currentStep) {
+      case 2:
+        panel = (
+          <FlightResult
+            flights={flightList}
+            flight={flight}
+            onSelect={this.onSelectFlight}
+          />
+        );
+        break;
+      case 3:
+        panel = (
+          <CustomerDetail
+            customer={customer}
+            onSelect={this.onCustomerUpdate}
+          />
+        );
+        break;
+      case 4:
+        panel = (
+          <Insurance
+            insurance={insurance}
+            insuranceList={insuranceList}
+            onSelect={this.onInsuranceSelect}
+          />
+        );
+        break;
+      case 5:
+        panel = (
+          <Review
+            flight={flight}
+            customer={customer}
+            insurance={insurance}
+            booking={this.state}
+            onConfirm={this.onConfirm}
+          />
+        );
+        break;
+      case 6:
+        panel = (
+          <React.Fragment>
+            <Typography variant="h3" justify="center">
+              Thank you for booking with us
+            </Typography>
+            <Typography>
+              Your booking details and other addons will be sent you your email
+              address
+            </Typography>
+            <Button onClick={this.goToStart}>Book More</Button>
+          </React.Fragment>
+        );
+        break;
+      default:
+        break;
+    }
     return (
       <MuiThemeProvider theme={theme}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <CssBaseline />
-          <NavBar />
-          <Grid container spacing={8} justify="center" alignItems="center">
-            <Grid item xs={12} sm={8}>
-              <Paper className={classes.paper}>
-                <SearchPanel
-                  onSearch={this.onSearch}
-                  onClear={this.onClearSearch}
-                />
-              </Paper>
-            </Grid>
-            <Grid item xs={12} sm={8}>
-              <FlightResult
-                flights={this.state.flights}
-                onSelect={this.onSelectFlight}
-              />
-            </Grid>
-            <Grid item xs={12} sm={8}>
-              <CustomerDetail onUpdate={this.onCustomerUpdate} />
-            </Grid>
-            <Grid item xs={12} sm={8}>
-              <Insurance
-                onSelect={this.onInsuranceSelect}
-                products={this.state.insuranceList}
-              />
-            </Grid>
-            <Grid item xs={12} sm={8}>
-              <Review onConfirm={this.onConfirm} />
-            </Grid>
+        <CssBaseline />
+        <NavBar onClick={this.goToStart} />
+        <Grid container spacing={8} justify="center" alignItems="center">
+          <Grid item xs={12} sm={8}>
+            <Paper className={classes.paper}>{panel}</Paper>
           </Grid>
-        </MuiPickersUtilsProvider>
+        </Grid>
       </MuiThemeProvider>
     );
   };

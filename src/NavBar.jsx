@@ -25,6 +25,7 @@ class NavBar extends Component {
             className={classes.menuButton}
             color="inherit"
             aria-label="Menu"
+            onClick={this.props.onClick}
           >
             <MenuIcon />
           </IconButton>

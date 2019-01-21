@@ -9,21 +9,17 @@ import {
   InputLabel,
   Typography
 } from "@material-ui/core";
-import { DatePicker } from "material-ui-pickers";
+import { DatePicker, MuiPickersUtilsProvider } from "material-ui-pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
-const dateFn = new DateFnsUtils();
 const styles = theme => ({
-  root: {
+  actionBar: {
+    marginTop: 8,
     display: "flex",
-    flexWrap: "wrap"
+    justifyContent: "flex-end"
   },
-  formControl: {
-    // margin: theme.spacing.unit
-  },
-
-  selectEmpty: {
-    marginTop: theme.spacing.unit * 2
+  action: {
+    display: "inline-block"
   }
 });
 const airports = [
@@ -36,15 +32,7 @@ const airports = [
 class SearchPanel extends Component {
   constructor(props) {
     super(props);
-
-    let today = dateFn.startOfDay(new Date());
-    let tomorrow = dateFn.addDays(today, 1);
-    this.state = {
-      from: "SIN",
-      departureDate: today,
-      to: "CTS",
-      returnDate: tomorrow
-    };
+    this.state = this.props.search;
   }
 
   handleFromChange = departurePort => {
@@ -60,16 +48,11 @@ class SearchPanel extends Component {
     this.setState({ to });
   };
   handleSearch = event => {
-    this.props.onSearch({
-      from: this.state.from,
-      to: this.state.to,
-      departureDate: this.state.departureDate,
-      returnDate: this.state.returnDate
-    });
+    this.props.onSearch(this.state);
   };
   handleClear = event => {};
   render() {
-    let state = this.state;
+    const state = this.state;
     const { classes } = this.props;
 
     const airportMenuItems = airports.map(airport => {
@@ -92,7 +75,7 @@ class SearchPanel extends Component {
               <Select
                 label="From"
                 variant="filled"
-                value={this.state.from}
+                value={state.from}
                 onChange={this.handleFromChange}
                 className={classes.textField}
               >
@@ -108,7 +91,7 @@ class SearchPanel extends Component {
             <FormControl className={classes.formControl} fullWidth={true}>
               <InputLabel>To</InputLabel>
               <Select
-                value={this.state.to}
+                value={state.to}
                 onChange={this.handleToChange}
                 label="To"
                 className={classes.textField}
@@ -120,43 +103,37 @@ class SearchPanel extends Component {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6} sm={6}>
-            <FormControl className={classes.formControl} fullWidth={true}>
-              <DatePicker
-                value={state.departureDate}
-                label="Departure Date"
-                onChange={this.handleDepartureDateChange}
-              />
-            </FormControl>
-          </Grid>
-          <Grid item xs={6} sm={6}>
-            <FormControl className={classes.formControl} fullWidth={true}>
-              <DatePicker
-                value={state.returnDate}
-                label="Return Date"
-                onChange={this.handleReturnDateChange}
-              />
-            </FormControl>
-          </Grid>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid item xs={6} sm={6}>
+              <FormControl className={classes.formControl} fullWidth={true}>
+                <DatePicker
+                  value={state.departureDate}
+                  label="Departure Date"
+                  onChange={this.handleDepartureDateChange}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={6} sm={6}>
+              <FormControl className={classes.formControl} fullWidth={true}>
+                <DatePicker
+                  value={state.returnDate}
+                  label="Return Date"
+                  onChange={this.handleReturnDateChange}
+                />
+              </FormControl>
+            </Grid>
+          </MuiPickersUtilsProvider>
         </Grid>
-        <Grid container spacing={8} justify="flex-end">
-          <Grid item xs={3} lg={2}>
-            <Button variant="text" color="secondary" onClick={this.handleClear}>
-              Clear Search
-            </Button>
-          </Grid>
-
-          <Grid item xs={3} lg={2}>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={this.handleSearch}
-            >
-              Search
-            </Button>
-          </Grid>
+        <Grid item xs={12} container spacing={8} className={classes.actionBar}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={this.handleSearch}
+            className={classes.action}
+          >
+            Search
+          </Button>
         </Grid>
-        <Grid container spacing={8} />
       </form>
     );
   }

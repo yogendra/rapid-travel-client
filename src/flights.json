@@ -1,0 +1,18 @@
+[
+  {
+    "source": "SIN",
+    "destination": "NRT",
+    "departureTime": "09:30",
+    "arrivalTime": "17:05",
+    "arrivalDay": "0",
+    "flight": "AA12"
+  },
+  {
+    "source": "SIN",
+    "destination": "NRT",
+    "departureTime": "23:55",
+    "arrivalTime": "07:30",
+    "arrivalDay": "1",
+    "flight": "AA13"
+  }
+]

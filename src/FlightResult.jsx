@@ -1,8 +1,16 @@
 import React, { Component } from "react";
-import { Paper, Grid, withStyles, Typography } from "@material-ui/core";
+import { Grid, withStyles, Typography, Button, Radio } from "@material-ui/core";
 import Flight from "./Flight";
 const styles = theme => ({
-  header: {}
+  header: {},
+  actionBar: {
+    marginTop: 8,
+    display: "flex",
+    justifyContent: "flex-end"
+  },
+  action: {
+    display: "inline-block"
+  }
 });
 class FlightResult extends Component {
   constructor(props) {
@@ -15,39 +23,45 @@ class FlightResult extends Component {
   handleFlightChange = event => {
     this.setState({ selectedFlight: event.target.value });
   };
+  handleNext = event => {
+    this.props.onSelect(this.state.selectedFlight);
+  };
   render() {
-    // let flightList = this.state.flights.map(flight => {
-    //   console.log("Rendering flight " + flight.flight);
-    //   return (
-    //     <Grid key={flight.flight} item xs={12}>
-    //       <Grid container>
-    //         <Grid item xs={1}>
-    //           <Radio
-    //             checked={this.state.selectedFlight === flight.flight}
-    //             onChange={this.handleFlightChange}
-    //             value={flight.flight}
-    //           />
-    //         </Grid>
-    //         <Grid item xs={10}>
-    //           <Flight flight={flight} />
-    //         </Grid>
-    //       </Grid>
-    //     </Grid>
-    //   );
-    // });
+    let { classes } = this.props;
     return (
-      <Paper>
-        <Grid container>
-          <Grid item xs={12}>
-            <Typography variant="h6">Flight Results</Typography>
-          </Grid>
-          <Grid container>
-            {this.state.flights.map(x => {
-              return <Flight flight={x} />;
-            })}
-          </Grid>
+      <Grid container>
+        <Grid item xs={12}>
+          <Typography variant="h6">Flight Results</Typography>
         </Grid>
-      </Paper>
+        <Grid container item xs={12}>
+          {this.state.flights.map(x => {
+            return (
+              <Grid key={x.flight} container item xs={12}>
+                <Grid item xs={1}>
+                  <Radio
+                    name="flight"
+                    value={x.flight}
+                    onSelect={this.handleFlightChange}
+                  />
+                </Grid>
+                <Grid item xs={11}>
+                  <Flight flight={x} />
+                </Grid>
+              </Grid>
+            );
+          })}
+        </Grid>
+        <Grid container item xs={12} className={classes.actionBar}>
+          <Button
+            className={classes.action}
+            variant="contained"
+            color="secondary"
+            onClick={this.handleNext}
+          >
+            Next
+          </Button>
+        </Grid>
+      </Grid>
     );
   }
 }
