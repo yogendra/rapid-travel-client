@@ -6,7 +6,6 @@ import {
   TextField
 } from "@material-ui/core";
 import React, { Component } from "react";
-import MaskedInput from "react-text-mask";
 
 let styles = themes => ({
   actionBar: {
@@ -85,7 +84,6 @@ class CustomerDetail extends Component {
               name="ccNumber"
               value={customer.ccNumber}
               onChange={this.onFieldChange}
-              inputComponent={CreditCardInput}
               autoComplete="off"
             />
           </Grid>
@@ -124,40 +122,6 @@ class CustomerDetail extends Component {
       </Grid>
     );
   }
-}
-
-function CreditCardInput(props) {
-  const { inputRef, ...other } = props;
-
-  return (
-    <MaskedInput
-      {...other}
-      ref={inputRef}
-      mask={[
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/,
-        " ",
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/,
-        " ",
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/,
-        " ",
-        /\d/,
-        /\d/,
-        /\d/,
-        /\d/
-      ]}
-      placeholderChar={"\u2000"}
-      showMask
-    />
-  );
 }
 
 export default withStyles(styles)(CustomerDetail);
