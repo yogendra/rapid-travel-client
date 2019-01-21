@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { DatePicker, MuiPickersUtilsProvider } from "material-ui-pickers";
 import DateFnsUtils from "@date-io/date-fns";
-
+import airports from "./airports.json";
 const styles = theme => ({
   actionBar: {
     marginTop: 8,
@@ -22,12 +22,6 @@ const styles = theme => ({
     display: "inline-block"
   }
 });
-const airports = [
-  { code: "SIN", name: "Singapore Changi Airport" },
-  { code: "NRT", name: "Tokyo Narita" },
-  { code: "CTS", name: "Sapporo" },
-  { code: "BOM", name: "Bombay, India (CST)" }
-];
 
 class SearchPanel extends Component {
   constructor(props) {
@@ -50,7 +44,7 @@ class SearchPanel extends Component {
   handleSearch = event => {
     this.props.onSearch(this.state);
   };
-  handleClear = event => {};
+
   render() {
     const state = this.state;
     const { classes } = this.props;

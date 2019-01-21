@@ -107,6 +107,7 @@ class AzapAir extends Component {
     let flightList = [1, 2, 3].map(x => {
       let depart = addHours(startOfDay(search.departureDate), x * 2 + 8);
       let arrival = addHours(startOfDay(search.departureDate), x * 2 + 12);
+      let amount = Math.round(150 + Math.random() * 100 + Math.random() * 10);
 
       return {
         source: search.from,
@@ -118,7 +119,7 @@ class AzapAir extends Component {
         flight: "AA1" + x,
         price: {
           currency: "USD",
-          amount: 150 + x * (Math.random() * 10 + 1)
+          amount: amount
         }
       };
     });

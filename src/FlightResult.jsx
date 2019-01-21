@@ -33,7 +33,7 @@ class FlightResult extends Component {
         <Grid item xs={12}>
           <Typography variant="h6">Flight Results</Typography>
         </Grid>
-        <Grid container item xs={12}>
+        <Grid container item xs={12} spacing={8}>
           {this.state.flights.map(x => {
             return (
               <Grid key={x.flight} container item xs={12}>
