@@ -38,6 +38,9 @@ const theme = createMuiTheme({
     typography: {
       useNextVariants: true,
       suppressDeprecationWarnings: true
+    },
+    MuiFormControl: {
+      fullWidth: true
     }
   }
 });
@@ -233,7 +236,7 @@ class AzapAir extends Component {
         <CssBaseline />
         <NavBar onClick={this.goToStart} />
         <Grid container spacing={8} justify="center" alignItems="center">
-          <Grid item xs={12} sm={8}>
+          <Grid item xs={11} sm={10}>
             <Paper className={classes.paper}>{panel}</Paper>
           </Grid>
         </Grid>

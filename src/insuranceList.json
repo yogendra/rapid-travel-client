@@ -1,0 +1,66 @@
+[
+  {
+    "code": "TRVL001",
+    "type": "TRAVEL",
+    "name": "Travel Insurance Worldwide",
+    "description": "Worldwide Travel Insurance provides you with protection anywhere, anytime.",
+    "premiumType": "ONE_TIME",
+    "premium": {
+      "currency": "USD",
+      "amount": 20
+    },
+    "coverage": {
+      "currency": "USD",
+      "amount": 10000
+    },
+    "smallBanner": "banner-small.jpg",
+    "mediumBanner": "banner-medium.jpg",
+    "largeBanner": "banner-large.jpg",
+    "parameters": []
+  },
+  {
+    "code": "XXXXXXWSKI001",
+    "type": "SPORT_SKI",
+    "name": "Weekly SKI Insurance",
+    "description": "Weekly insurance for skiing anywhere in the world",
+    "premiumType": "ONE_TIME",
+    "premium": {
+      "currency": "USD",
+      "amount": 200
+    },
+    "coverage": {
+      "currency": "USD",
+      "amount": 10000
+    },
+    "smallBanner": "banner-small.jpg",
+    "mediumBanner": "banner-medium.jpg",
+    "largeBanner": "banner-large.jpg",
+    "parameters": []
+  },
+  {
+    "code": "XXXXHSKI001",
+    "type": "SPORT_SKI",
+    "name": "Hourly SKI Insurance",
+    "description": "Hourly insurance for skiing anywhere in the world",
+    "premiumType": "ONE_TIME",
+    "premium": {
+      "currency": "USD",
+      "amount": 50
+    },
+    "coverage": {
+      "currency": "USD",
+      "amount": 2000
+    },
+    "smallBanner": "banner-small.jpg",
+    "mediumBanner": "banner-medium.jpg",
+    "largeBanner": "banner-large.jpg",
+    "parameters": [
+      {
+        "name": "Hours",
+        "description": "How many hours?",
+        "required": true,
+        "type": "NUMBER"
+      }
+    ]
+  }
+]
