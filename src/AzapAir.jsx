@@ -219,7 +219,9 @@ class AzapAir extends Component {
               Your booking details and other addons will be sent you your email
               address
             </Typography>
-            <Button onClick={this.goToStart}>Book More</Button>
+            <Button color="secondary" onClick={this.goToStart}>
+              Book More
+            </Button>
           </React.Fragment>
         );
         break;
