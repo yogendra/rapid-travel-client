@@ -1,6 +1,7 @@
 import { Grid, withStyles, Typography, Icon } from "@material-ui/core";
 import React, { Component } from "react";
 import airports from "./airports.json";
+import AmountUI from "./AmountUI.jsx";
 const styles = themes => ({
   arrow: {
     paddingTop: 4
@@ -51,9 +52,7 @@ class Flight extends Component {
           </Typography>
         </Grid>
         <Grid item xs={2}>
-          <Typography variant="h5">
-            {flight.price.currency}&nbsp;{flight.price.amount}
-          </Typography>
+          <AmountUI amount={flight.price} />
         </Grid>
       </Grid>
     );

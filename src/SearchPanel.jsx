@@ -29,8 +29,8 @@ class SearchPanel extends Component {
     this.state = this.props.search;
   }
 
-  handleFromChange = departurePort => {
-    this.setState({ departurePort });
+  handleFromChange = event => {
+    this.setState({ from: event.target.value });
   };
   handleDepartureDateChange = departureDate => {
     this.setState({ departureDate });
@@ -38,8 +38,8 @@ class SearchPanel extends Component {
   handleReturnDateChange = returnDate => {
     this.setState({ returnDate });
   };
-  handleToChange = to => {
-    this.setState({ to });
+  handleToChange = event => {
+    this.setState({ to: event.target.value });
   };
   handleSearch = event => {
     this.props.onSearch(this.state);
@@ -51,73 +51,61 @@ class SearchPanel extends Component {
 
     const airportMenuItems = airports.map(airport => {
       return (
-        <MenuItem key={airport.code} value={airport.code}>
+        <MenuItem key={"airport_" + airport.code} value={airport.code}>
           {airport.name} ({airport.code})
         </MenuItem>
       );
     });
+
     return (
-      <form noValidate>
-        <Grid container justify="center" alignItems="center" spacing={8}>
-          <Grid item xs={12}>
-            <Typography variant="h6">Flight Search</Typography>
-          </Grid>
-
-          <Grid item xs={6} sm={6}>
-            <FormControl className={classes.formControl} fullWidth={true}>
-              <InputLabel>From</InputLabel>
-              <Select
-                label="From"
-                variant="filled"
-                value={state.from}
-                onChange={this.handleFromChange}
-                className={classes.textField}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {airportMenuItems}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={6} sm={6}>
-            <FormControl className={classes.formControl} fullWidth={true}>
-              <InputLabel>To</InputLabel>
-              <Select
-                value={state.to}
-                onChange={this.handleToChange}
-                label="To"
-                className={classes.textField}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {airportMenuItems}
-              </Select>
-            </FormControl>
-          </Grid>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid item xs={6} sm={6}>
-              <FormControl className={classes.formControl} fullWidth={true}>
-                <DatePicker
-                  value={state.departureDate}
-                  label="Departure Date"
-                  onChange={this.handleDepartureDateChange}
-                />
-              </FormControl>
-            </Grid>
-            <Grid item xs={6} sm={6}>
-              <FormControl className={classes.formControl} fullWidth={true}>
-                <DatePicker
-                  value={state.returnDate}
-                  label="Return Date"
-                  onChange={this.handleReturnDateChange}
-                />
-              </FormControl>
-            </Grid>
-          </MuiPickersUtilsProvider>
+      <Grid container alignItems="center" spacing={8}>
+        <Grid item xs={12}>
+          <Typography variant="h6">Flight Search</Typography>
         </Grid>
+
+        <Grid item xs={12} md={6}>
+          <FormControl fullWidth={true}>
+            <InputLabel shrink>From</InputLabel>
+            <Select
+              value={state.from}
+              onChange={this.handleFromChange}
+              className={classes.textField}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {airportMenuItems}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <FormControl fullWidth={true}>
+            <InputLabel shrink>To</InputLabel>
+
+            <Select
+              value={state.to}
+              onChange={this.handleToChange}
+              className={classes.textField}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {airportMenuItems}
+            </Select>
+          </FormControl>
+        </Grid>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <Grid item xs={12} md={6}>
+            <FormControl className={classes.formControl} fullWidth={true}>
+              <DatePicker
+                value={state.departureDate}
+                label="Departure Date"
+                onChange={this.handleDepartureDateChange}
+              />
+            </FormControl>
+          </Grid>
+        </MuiPickersUtilsProvider>
         <Grid item xs={12} container spacing={8} className={classes.actionBar}>
           <Button
             variant="contained"
@@ -128,7 +116,7 @@ class SearchPanel extends Component {
             Search
           </Button>
         </Grid>
-      </form>
+      </Grid>
     );
   }
 }

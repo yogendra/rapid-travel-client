@@ -215,10 +215,10 @@ class AzapAir extends Component {
       case 6:
         panel = (
           <React.Fragment>
-            <Typography variant="h3" justify="center">
-              Thank you for booking with us
+            <Typography variant="h3" justify="center" justifyContent="center">
+              Thank You
             </Typography>
-            <Typography>
+            <Typography justifyContent="center">
               Your booking details and other addons will be sent you your email
               address
             </Typography>

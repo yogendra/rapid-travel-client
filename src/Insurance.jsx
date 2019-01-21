@@ -25,6 +25,13 @@ class Insurance extends Component {
   handleNext = event => {
     this.props.onSelect(this.state.selected);
   };
+  onPremiumUpdate = premium => {
+    this.setState(prevState => {
+      let selected = { ...prevState.selected };
+      selected.premium = premium;
+      return { selected: selected };
+    });
+  };
   render() {
     const { classes } = this.props;
     let items = this.props.insuranceList.map(i => {
@@ -38,7 +45,10 @@ class Insurance extends Component {
           </Grid>
 
           <Grid item xs={11}>
-            <InsuranceItem insurance={i} />
+            <InsuranceItem
+              insurance={i}
+              onPremiumUpdate={this.onPremiumUpdate}
+            />
           </Grid>
         </Grid>
       );
