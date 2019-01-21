@@ -1,5 +1,5 @@
-import { Grid, Paper, withStyles, Typography, Button } from "@material-ui/core";
-import React, { Component } from "react";
+import { Grid, withStyles, Typography, Button } from "@material-ui/core";
+import React from "react";
 
 let styles = themes => ({
   actionBar: {

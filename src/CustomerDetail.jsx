@@ -21,22 +21,25 @@ let styles = themes => ({
 class CustomerDetail extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = this.props.customer;
   }
-  onNameChange = event => {
-    this.setState({ name: event.target.value });
+  onFieldChange = event => {
+    console.log(event.target);
+    let fieldName = event.target.name;
+    let fieldValue = event.target.value;
+    let change = {};
+    change[fieldName] = fieldValue;
+    console.log(change);
+    this.setState(change);
   };
-  onEmailChange = event => {
-    this.setState({ email: event.target.value });
-  };
-  onPhoneChange = event => {
-    this.setState({ phone: event.target.value });
-  };
-  handleNext = event => {
+
+  handleNext = () => {
     this.props.onSelect(this.state);
   };
   render() {
-    const { customer, classes } = this.props;
+    const { classes } = this.props;
+    const customer = this.state;
+
     return (
       <Grid container spacing={8}>
         <Grid item xs={12}>
@@ -47,8 +50,9 @@ class CustomerDetail extends Component {
             <FormControl fullWidth={true}>
               <TextField
                 label="Name"
+                name="name"
                 value={customer.name}
-                onChange={this.onNameChange}
+                onChange={this.onFieldChange}
                 autoComplete="name"
               />
             </FormControl>
@@ -57,8 +61,9 @@ class CustomerDetail extends Component {
             <FormControl fullWidth={true}>
               <TextField
                 label="Email"
+                name="email"
                 value={customer.email}
-                onChange={this.onEmailChange}
+                onChange={this.onFieldChange}
                 autoComplete="email"
               />
             </FormControl>
@@ -67,9 +72,43 @@ class CustomerDetail extends Component {
             <FormControl fullWidth={true}>
               <TextField
                 label="Phone Number"
+                name="phone"
                 value={customer.phone}
-                onChange={this.onPhoneChange}
+                onChange={this.onFieldChange}
                 autoComplete="phone tel"
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <FormControl fullWidth={true}>
+              <TextField
+                label="Credit Card Number"
+                name="ccNumber"
+                value={customer.ccNumber}
+                onChange={this.onFieldChange}
+                autoComplete="off"
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <FormControl fullWidth={true}>
+              <TextField
+                label="Expity"
+                name="ccExpiry"
+                value={customer.ccExpiry}
+                onChange={this.onFieldChange}
+                autoComplete="off"
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <FormControl fullWidth={true}>
+              <TextField
+                label="CVV"
+                name="ccCvv"
+                value={customer.ccCvv}
+                onChange={this.onFieldChange}
+                autoComplete="off"
               />
             </FormControl>
           </Grid>

@@ -88,11 +88,9 @@ class AzapAir extends Component {
       name: "",
       email: "",
       phone: "",
-      cc: {
-        number: "",
-        expiry: "",
-        cvv: ""
-      }
+      ccNumber: "",
+      ccExpiry: "",
+      ccCvv: ""
     },
     insurance: [],
     insuranceList: [],

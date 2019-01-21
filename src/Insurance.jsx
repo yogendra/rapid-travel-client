@@ -29,6 +29,7 @@ class Insurance extends Component {
     this.props.onSelect(this.state.selected);
   };
   render() {
+    const { classes } = this.props;
     let items = this.props.insuranceList.map(i => {
       return (
         <Grid container spacing={8} key={i.code}>
@@ -50,16 +51,22 @@ class Insurance extends Component {
           {items}
         </Grid>
 
-        <Grid item xs={12} container spacing={8} justify="flex-end">
-          <Grid item xs={2}>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={this.handleNext}
-            >
-              Next
-            </Button>
-          </Grid>
+        <Grid
+          item
+          xs={12}
+          container
+          spacing={8}
+          justify="flex-end"
+          className={classes.actionBar}
+        >
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.action}
+            onClick={this.handleNext}
+          >
+            Next
+          </Button>
         </Grid>
       </Grid>
     );
