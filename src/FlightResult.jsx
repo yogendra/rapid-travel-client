@@ -17,11 +17,12 @@ class FlightResult extends Component {
     super(props);
     this.state = {
       flights: this.props.flights,
-      selectedFlight: {}
+      selectedFlight: this.props.flight
     };
   }
-  handleFlightChange = event => {
-    this.setState({ selectedFlight: event.target.value });
+  handleFlightChange = flight => {
+    console.log(flight);
+    this.setState({ selectedFlight: flight });
   };
   handleNext = event => {
     this.props.onSelect(this.state.selectedFlight);
@@ -41,7 +42,7 @@ class FlightResult extends Component {
                   <Radio
                     name="flight"
                     value={x.flight}
-                    onSelect={this.handleFlightChange}
+                    onClick={() => this.handleFlightChange(x)}
                   />
                 </Grid>
                 <Grid item xs={11}>

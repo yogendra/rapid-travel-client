@@ -92,7 +92,7 @@ class AzapAir extends Component {
       ccExpiry: "",
       ccCvv: ""
     },
-    insurance: [],
+    insurance: null,
     insuranceList: [],
     search: {
       from: "SIN",

@@ -21,9 +21,6 @@ class Insurance extends Component {
       selected: null
     };
   }
-  shouldComponentUpdate = nextProps => {
-    return nextProps.products !== this.state.products;
-  };
 
   handleNext = event => {
     this.props.onSelect(this.state.selected);
@@ -34,7 +31,10 @@ class Insurance extends Component {
       return (
         <Grid container spacing={8} key={i.code}>
           <Grid item xs={1}>
-            <Radio name="insurances" />
+            <Radio
+              name="insurances"
+              onClick={() => this.setState({ selected: i })}
+            />
           </Grid>
 
           <Grid item xs={11}>
