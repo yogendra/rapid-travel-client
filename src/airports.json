@@ -1,6 +1,7 @@
 [
   { "code": "SIN", "name": "Singapore Changi Airport" },
-  { "code": "NRT", "name": "Tokyo Narita" },
+  { "code": "NRT", "name": "Tokyo, Narita, Japan" },
+  { "code": "MMJ", "name": "Nagano, Matsumoto, Japan " },
   { "code": "CTS", "name": "Sapporo" },
   { "code": "BOM", "name": "Bombay, India (CST)" }
 ]
