@@ -23,6 +23,7 @@ pipeline {
             }
         }
         stage ('Test and Deploy') {
+            agent any
             steps {
                 unstash name: 'app'
                 sleep 2
