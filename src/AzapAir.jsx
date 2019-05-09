@@ -122,7 +122,7 @@ class AzapAir extends Component {
         flight: "AA1" + x,
         price: {
           currency: "USD",
-          amount: amount
+          number: amount
         }
       };
     });

@@ -7,7 +7,7 @@ const AmountUI = props => {
       <span style={{ marginRight: 2 }}>{props.label}</span>
       <span>{props.label ? ":" : ""}</span>
       <span style={{ marginRight: 2 }}>{props.amount.currency}</span>
-      <span>{props.amount.amount}</span>
+      <span>{props.amount.number}</span>
     </Typography>
   );
 };

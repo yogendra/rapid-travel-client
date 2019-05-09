@@ -42,7 +42,7 @@ class InsuranceItem extends Component {
   }
   onParameterChange = change => {
     let premiumAmount = { ...this.state.insurance.premium };
-    premiumAmount.amount *= change.value;
+    premiumAmount.number *= change.value;
     this.setState({ premiumAmount: premiumAmount });
     this.props.onPremiumUpdate(premiumAmount);
   };
@@ -89,12 +89,12 @@ class InsuranceItem extends Component {
                 <AmountUI label="Premium" amount={i.premium} />
                 <AmountUI label="Coverage" amount={i.coverage} />
               </Grid>
-              <Grid item xs={6} >
+              <Grid item xs={6}>
                 {parameters}
               </Grid>
             </Grid>
             <Grid item xs={12} container justify="flex-end">
-              <Grid item xs={4} sm={2} justify={"flex-end"} >
+              <Grid item xs={4} sm={2} justify={"flex-end"}>
                 <AmountUI label="Total" amount={this.state.premiumAmount} />
               </Grid>
             </Grid>

@@ -28,7 +28,7 @@ const Review = props => {
   const { classes, customer, flight, insurance } = props;
   let total = "USD 0";
   if (flight && flight.price && insurance && insurance.premium) {
-    total = "USD " + (flight.price.amount + insurance.premium.amount);
+    total = "USD " + (flight.price.number + insurance.premium.number);
   }
   return (
     <Grid container spacing={8} justify="center">
@@ -60,13 +60,13 @@ const Review = props => {
         />
         <ReviewLine
           label="Price"
-          value={flight.price.currency + " " + flight.price.amount}
+          value={flight.price.currency + " " + flight.price.number}
         />
 
         <ReviewLine label="Insurace" value={insurance.name} />
         <ReviewLine
           label="Insurance Price"
-          value={insurance.premium.currency + " " + insurance.premium.amount}
+          value={insurance.premium.currency + " " + insurance.premium.number}
         />
         <Grid
           item
