@@ -2,7 +2,7 @@
 applications:
 - name: travizza-test
   health-check-type: http
-  health-check-http-endpoint: /
+  health-check-http-endpoint: /index.html
   path: build
   stack: cflinuxfs3
   buildpacks:
