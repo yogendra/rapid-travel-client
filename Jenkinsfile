@@ -33,12 +33,12 @@ pipeline {
 
                 withCredentials([usernamePassword(credentialsId: 'pcf-pcfone', passwordVariable: 'CF_PASSWORD', usernameVariable: 'CF_USER')]) {
                     sh 'cf login -a api.run.pcfone.io -u $CF_USER -p $CF_PASSWORD -s Testing'
-                    sh 'cf push travizza-test'
+                    sh 'cf push -f manifest-pcfone-test.yml travizza-test'
                 }
 
                 withCredentials([usernamePassword(credentialsId: 'pcf-pcfone', passwordVariable: 'CF_PASSWORD', usernameVariable: 'CF_USER')]) {
                     sh 'cf login -a api.run.pcfone.io -u $CF_USER -p $CF_PASSWORD -s Production'
-                    sh 'cf push travizza'
+                    sh 'cf push -f manifest-pcfone.yml travizza'
                 }
             }
         }

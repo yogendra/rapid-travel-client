@@ -8,6 +8,9 @@ let styles = themes => ({
     display: "flex",
     justifyContent: "flex-end"
   },
+  iitem: {
+    marginTop: 10
+  },
   action: {
     display: "inline-block"
   }
@@ -36,7 +39,7 @@ class Insurance extends Component {
     const { classes } = this.props;
     let items = this.props.insuranceList.map(i => {
       return (
-        <Grid container spacing={8} key={i.code}>
+        <Grid container spacing={8} key={i.code} className={classes.iitem}>
           <Grid item xs={1}>
             <Radio
               name="insurances"
@@ -44,7 +47,7 @@ class Insurance extends Component {
             />
           </Grid>
 
-          <Grid item xs={11}>
+          <Grid item xs={11} >
             <InsuranceItem
               insurance={i}
               onPremiumUpdate={this.onPremiumUpdate}

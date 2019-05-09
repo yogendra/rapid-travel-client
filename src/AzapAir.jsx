@@ -149,7 +149,7 @@ class AzapAir extends Component {
     this.next();
   };
   onConfirm = event => {
-    this.setState({ confirme: true });
+    this.setState({ confirm: true });
     this.next();
   };
   next = () => {

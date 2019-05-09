@@ -1,6 +1,6 @@
 class RapidApi {
-  constructor(config) {
-    this.base = config.baseUrl;
+  constructor(baseUrl) {
+    this.base = baseUrl;
   }
   endpointUrl = api => {
     return this.base + api;

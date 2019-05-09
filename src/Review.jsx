@@ -26,7 +26,7 @@ const ReviewLine = props => {
 };
 const Review = props => {
   const { classes, customer, flight, insurance } = props;
-  let total = { curreny: "USD", amount: 0 };
+  let total = "USD 0";
   if (flight && flight.price && insurance && insurance.premium) {
     total = "USD " + (flight.price.amount + insurance.premium.amount);
   }

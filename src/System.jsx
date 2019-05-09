@@ -1,12 +1,9 @@
 import RapidApi from "./RapidApi";
-import config from "./config.json";
 
 class System {
   constructor() {
-    this.env = process.env.NODE_ENV;
-    this.config = config[this.env] || config.local;
-    this.rapidApi = new RapidApi(this.config.rapid);
-    console.log(this);
+    this.rapidApi = new RapidApi(process.env.REACT_APP_RAPID_API);
+    console.log(process.env.REACT_APP_RAPID_API);
   }
 }
 

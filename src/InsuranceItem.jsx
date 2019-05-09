@@ -16,7 +16,10 @@ import AmountUI from "./AmountUI";
 const styles = theme => ({
   header: {},
   card: {
-    maxWidth: "92%"
+    maxWidth: "100%"
+  },
+  cardContent: {
+    maxWidth: "95%"
   },
   media: {
     height: 200
@@ -74,7 +77,7 @@ class InsuranceItem extends Component {
             image={i.largeBanner}
             title={i.name}
           />
-          <CardContent>
+          <CardContent className={classes.cardContent}>
             <Grid container space={8}>
               <Grid item xs={12}>
                 <Typography variant="h5" component="h2">
@@ -86,12 +89,12 @@ class InsuranceItem extends Component {
                 <AmountUI label="Premium" amount={i.premium} />
                 <AmountUI label="Coverage" amount={i.coverage} />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={6} >
                 {parameters}
               </Grid>
             </Grid>
             <Grid item xs={12} container justify="flex-end">
-              <Grid item xs={2}>
+              <Grid item xs={4} sm={2} justify={"flex-end"} >
                 <AmountUI label="Total" amount={this.state.premiumAmount} />
               </Grid>
             </Grid>

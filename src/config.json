@@ -4,6 +4,11 @@
       "baseUrl": "http://localhost:8080"
     }
   },
+  "test" : {
+    "rapid": {
+      "baseUrl": "http://api-rapid-test.apps.pcfone.io"
+    }
+  },
   "production": {
     "rapid": {
       "baseUrl": "https://api-rapid.apps.pcfone.io"
