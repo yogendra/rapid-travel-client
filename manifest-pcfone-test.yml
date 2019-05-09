@@ -8,4 +8,4 @@ applications:
   routes:
     - route: travizza-test.apps.pcfone.io
   env:
-    NODE_ENV:test
+    NODE_ENV: test

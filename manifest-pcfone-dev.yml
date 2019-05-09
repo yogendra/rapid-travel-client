@@ -7,4 +7,4 @@ applications:
     - staticfile_buildpack
   random-route: true
   env:
-    NODE_ENV=development
+    NODE_ENV: development
