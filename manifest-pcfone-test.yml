@@ -9,3 +9,5 @@ applications:
     - staticfile_buildpack
   routes:
     - route: travizza-test.apps.pcfone.io
+  env:
+    NODE_ENV:test

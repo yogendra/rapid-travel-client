@@ -7,4 +7,6 @@ applications:
   stack: cflinuxfs3
   buildpacks:
     - staticfile_buildpack
+  env:
+    NODE_ENV: production
 
