@@ -23,10 +23,6 @@ pipeline {
             }
         }
         stage ('Test and Deploy') {
-            agent {
-                docker { image 'smizy/cf-cli' }
-                
-            }
             steps {
                 unstash name: 'app'
                 sleep 2
